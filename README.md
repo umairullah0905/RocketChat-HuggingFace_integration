@@ -1,4 +1,4 @@
-This repository contains a Rocket.Chat App Engine SDK integration with Hugging Face and a FastAPI backend API, allowing users to interact with Hugging Face models, datasets, and Spaces directly from Rocket.Chat.
+<h1>This repository contains a Rocket.Chat App Engine SDK integration with Hugging Face and a FastAPI backend API, allowing users to interact with Hugging Face models, datasets, and Spaces directly from Rocket.Chat.</h1>
 📦 HuggingFace-RocketChat-Integration  
 │  
 ├── 📂 BackendAPI  (FastAPI backend)  
