@@ -30,7 +30,7 @@ async def post_pull_request(data: PullRequestData):
 class DiscussionCreateRequest(BaseModel):
     repo_id: str
     title: str
-    token: str  # ✅ Accept token directly from Rocket.Chat request
+    token: str  #  Accept token directly from Rocket.Chat request
 
 @router.post("/create-discussion")
 async def create_new_discussion(request: DiscussionCreateRequest):
@@ -39,7 +39,7 @@ async def create_new_discussion(request: DiscussionCreateRequest):
         discussion = create_discussion(
             repo_id=request.repo_id,
             title=request.title,
-            token=request.token  # ✅ Token comes from Rocket.Chat, not session storage
+            token=request.token  #  Token comes from Rocket.Chat, not session storage
         )
 
         return {"discussion_num": discussion.num, "title": discussion.title, "status": discussion.status}
