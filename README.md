@@ -34,7 +34,8 @@ HuggingFace-RocketChat-Integration
 
 🔹 Encryption – User tokens are securely stored using encryption techniqu
 
-Tech Stack
+
+<h2>Tech Stack</h2>
 FastAPI – Backend API for Hugging Face interactions.
 
 Rocket.Chat App Engine SDK – For building and deploying Rocket.Chat apps.
