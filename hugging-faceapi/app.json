@@ -1,0 +1,16 @@
+{
+    "id": "ab1e366b-a03f-4f39-ae10-54c552a935ad",
+    "version": "0.0.1",
+    "requiredApiVersion": "^1.44.0",
+    "iconFile": "icon.png",
+    "author": {
+        "name": "Umair",
+        "homepage": "rocketchat.com",
+        "support": "support.rocketchat.com"
+    },
+    "name": "Hugging FaceApi",
+    "nameSlug": "hugging-faceapi",
+    "classFile": "HuggingFaceApiApp.ts",
+    "description": "Hugging faceapi",
+    "implements": []
+}
