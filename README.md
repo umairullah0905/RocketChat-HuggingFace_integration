@@ -18,14 +18,16 @@ HuggingFace-RocketChat-Integration
 │   │   ├── storage.ts  (Session-based token storage)  
 │  
 └── 📜 README.md  (Project documentation)  
- FastAPI Backend (BackendAPI)
+
+ <h2>FastAPI Backend (BackendAPI)</h2>
+ 
 ✅ Create Pull Requests – API to initiate pull requests on Hugging Face repositories.
 
 ✅ Create Discussions – API to open discussions on Hugging Face forums.
 
 ✅ File Upload – API to upload files to Hugging Face.
 
-💬 Rocket.Chat App (Hugging-FaceAPI)
+<h2>Rocket.Chat App (Hugging-FaceAPI)</h2>
 🔹 Slash Commands – Execute Hugging Face actions from Rocket.Chat.
 
 🔹 Secure OAuth Token Storage – Uses session-based storage for security.
