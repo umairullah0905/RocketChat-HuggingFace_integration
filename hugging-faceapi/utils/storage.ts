@@ -23,8 +23,8 @@ export async function getHuggingFaceToken(read: IRead, persis: IPersistence): Pr
         const data = storedData[0] as { token?: string; expiresAt?: number };
 
         if (data.expiresAt && Date.now() > data.expiresAt) {
-            await persis.removeByAssociation(association);
-            return null; // Just return null, don't remove it here
+            await persis.removeByAssociation(association);//token removed
+            return null; 
         }
 
         return data.token ? await decryptToken(data.token) : null;
