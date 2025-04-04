@@ -1,4 +1,4 @@
-import { IHttp, IRead, IModify } from '@rocket.chat/apps-engine/definition/accessors';
+import { IHttp, IRead, IModify, IPersistence } from '@rocket.chat/apps-engine/definition/accessors';
 import { ISlashCommand, SlashCommandContext } from '@rocket.chat/apps-engine/definition/slashcommands';
 import { getHuggingFaceToken } from '../utils/storage';
 
@@ -8,9 +8,9 @@ export class HFGetModelsCommand implements ISlashCommand {
     public i18nDescription = 'Fetch the list of your Hugging Face models';
     public providesPreview = false;
 
-    async executor(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp) {
+    async executor(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp, persis: IPersistence) {
         // Retrieve stored token
-        const token = await getHuggingFaceToken(read);
+        const token = await getHuggingFaceToken(read, persis);
         if (!token) {
             await this.sendMessage(context, modify, '⚠️ Please log in first using `/hf-login <your-token>`');
             return;

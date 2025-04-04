@@ -1,4 +1,4 @@
-import { IHttp, IRead, IModify } from '@rocket.chat/apps-engine/definition/accessors';
+import { IHttp, IRead, IModify, IPersistence } from '@rocket.chat/apps-engine/definition/accessors';
 import { ISlashCommand, SlashCommandContext } from '@rocket.chat/apps-engine/definition/slashcommands';
 import { getHuggingFaceToken } from '../utils/storage';
 
@@ -8,7 +8,7 @@ export class HFPullRequestCommand implements ISlashCommand {
     public providesPreview = false;
     public i18nParamsExample = 'repo_id title';
 
-    async executor(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp) {
+    async executor(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp, persis: IPersistence) {
         const args = context.getArguments();
         if (args.length < 2) {
             await this.sendMessage(context, modify, '⚠️ Usage: `/hf-pull-request <repo_id> <title>`');
@@ -19,7 +19,7 @@ export class HFPullRequestCommand implements ISlashCommand {
         const title = args.slice(1).join(' ');
 
         // Retrieve stored token
-        const token = await getHuggingFaceToken(read);
+        const token = await getHuggingFaceToken(read, persis);
         if (!token) {
             await this.sendMessage(context, modify, '⚠️ Please log in first using `/hf-login <your-token>`');
             return;

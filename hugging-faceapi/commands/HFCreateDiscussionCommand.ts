@@ -1,4 +1,4 @@
-import { IHttp, IRead, IModify } from '@rocket.chat/apps-engine/definition/accessors';
+import { IHttp, IRead, IModify, IPersistence } from '@rocket.chat/apps-engine/definition/accessors';
 import { ISlashCommand, SlashCommandContext } from '@rocket.chat/apps-engine/definition/slashcommands';
 
 // import { OAuthStore } from '../utils/OauthStore';
@@ -13,7 +13,7 @@ export class HFCreateDiscussionCommand implements ISlashCommand {
     public providesPreview = false;
     public i18nParamsExample = 'repo_id title';
 
-    async executor(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp) {
+    async executor(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp, persis: IPersistence) {
         const args = context.getArguments();
         if (args.length < 2) {
             await this.sendMessage(context, modify, '⚠️ Usage: `/hf-create-discussion <repo_id> <title>`');
@@ -23,18 +23,18 @@ export class HFCreateDiscussionCommand implements ISlashCommand {
         const repoId = args[0];
         const title = args.slice(1).join(' ');
 
-        //  Retrieve stored access token
-        let token = await getHuggingFaceToken(read);
+        // ✅ Retrieve stored access token
+        let token = await getHuggingFaceToken(read, persis);
         if (!token) {
             await this.sendMessage(context, modify, '⚠️ You are not authenticated. Please log in first.');
             return;
         }
 
-        //  Send request to create discussion (Token in body for POST request)
+        // ✅ Send request to create discussion (Token in body for POST request)
         try {
             const response = await http.post('http://127.0.0.1:8000/create/create-discussion', {
                 headers: { 'Content-Type': 'application/json' },
-                data: { repo_id: repoId, title: title, token: token },  //  Token in request body
+                data: { repo_id: repoId, title: title, token: token },  // ✅ Token in request body
             });
 
             if (response.statusCode >= 200 && response.statusCode < 300 && response.data) {
@@ -42,7 +42,7 @@ export class HFCreateDiscussionCommand implements ISlashCommand {
                 await this.sendMessage(
                     context,
                     modify,
-                    ` Discussion created successfully!\n\n**Repo:** ${repoId}\n**Title:** ${title}\n**Discussion ID:** ${discussionNum}`
+                    `✅ Discussion created successfully!\n\n**Repo:** ${repoId}\n**Title:** ${title}\n**Discussion ID:** ${discussionNum}`
                 );
             } else {
                 throw new Error(response.data?.detail || 'Unknown error');

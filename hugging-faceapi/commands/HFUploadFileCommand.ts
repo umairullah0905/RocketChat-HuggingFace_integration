@@ -20,7 +20,7 @@ export class HFUploadFileCommand implements ISlashCommand {
         read: IRead,
         modify: IModify,
         http: IHttp,
-        persistence: IPersistence
+        persis: IPersistence
     ): Promise<void> {
         const args = context.getArguments();
 
@@ -44,7 +44,7 @@ export class HFUploadFileCommand implements ISlashCommand {
         }
 
         // Retrieve token from local storage
-        const token = await getHuggingFaceToken(read);
+        const token = await getHuggingFaceToken(read, persis);
         if (!token) {
             await this.sendMessage(context, modify, '❌ Error: No Hugging Face token found. Please set it first.');
             return;

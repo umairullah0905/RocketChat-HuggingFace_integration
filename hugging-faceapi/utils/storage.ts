@@ -15,7 +15,7 @@ export async function storeHuggingFaceToken(persis: IPersistence, token: string)
     await persis.updateByAssociation(association, { token: encryptedToken, expiresAt }, true);
 }
 
-export async function getHuggingFaceToken(read: IRead): Promise<string | null> {
+export async function getHuggingFaceToken(read: IRead, persis: IPersistence): Promise<string | null> {
     const association = new RocketChatAssociationRecord(RocketChatAssociationModel.MISC, TOKEN_KEY);
     const storedData = await read.getPersistenceReader().readByAssociation(association);
 
@@ -23,6 +23,7 @@ export async function getHuggingFaceToken(read: IRead): Promise<string | null> {
         const data = storedData[0] as { token?: string; expiresAt?: number };
 
         if (data.expiresAt && Date.now() > data.expiresAt) {
+            await persis.removeByAssociation(association);
             return null; // Just return null, don't remove it here
         }
 
